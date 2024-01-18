@@ -1,6 +1,10 @@
 # Mac OS
 .DS_Store
 
+# Node
+node_modules/
+ui/node_modules
+
 .gradle
 **/build/
 !src/**/build/
