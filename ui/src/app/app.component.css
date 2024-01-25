@@ -1,0 +1,19 @@
+.header {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    background: skyblue;
+    color: white;
+    font-size: 18px;
+  }
+
+  .footer-basic {
+    width: 100%;
+    position: absolute; 
+    bottom: 0; 
+    padding: 10px;
+    background: skyblue;
+    color:#797a7b;
+    text-align: center;
+  }
