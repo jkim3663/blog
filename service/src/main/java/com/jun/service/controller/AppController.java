@@ -1,4 +1,33 @@
 package com.jun.service.controller;
 
+import com.jun.service.constants.ApiConstants;
+import com.jun.service.dto.UserDTO;
+import com.jun.service.logic.UserService;
+import com.jun.service.repository.CustomUserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/api")
+@RequiredArgsConstructor
 public class AppController {
+
+    private final CustomUserRepository customUserRepository;
+
+    @PostMapping("/usr/profile")
+    public ResponseEntity createNewProfile(@RequestBody UserDTO userDTO) {
+        System.out.println(userDTO.getEmail());
+        System.out.println(userDTO.getPassword());
+        if (userDTO.getEmail() != null && userDTO.getPassword() != null
+                && Validation.validateGetUserInfoRequest(userDTO.getEmail())) {
+            UserService userService = new UserService(customUserRepository);
+            return userService.loadUser(userDTO);
+        }
+        return new ResponseEntity(ApiConstants.API_REQUEST_FAIL, HttpStatus.BAD_REQUEST);
+    }
 }
