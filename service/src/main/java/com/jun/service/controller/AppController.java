@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,19 @@ public class AppController {
 
     private final CustomUserRepository customUserRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/usr/check")
+    public ResponseEntity<Boolean> checkProfile(@RequestBody UserDTO userDTO) {
+        if (userDTO.getEmail() != null && userDTO.getPassword() != null
+                && Validation.validateGetUserInfoRequest(userDTO.getEmail())) {
+            UserService userService = new UserService(customUserRepository);
+            return userService.checkUser(userDTO);
+        }
+        return new ResponseEntity(ApiConstants.API_REQUEST_FAIL, HttpStatus.BAD_REQUEST);
+    }
+
     @PostMapping("/usr/profile")
     public ResponseEntity createNewProfile(@RequestBody UserDTO userDTO) {
-        System.out.println(userDTO.getEmail());
-        System.out.println(userDTO.getPassword());
         if (userDTO.getEmail() != null && userDTO.getPassword() != null
                 && Validation.validateGetUserInfoRequest(userDTO.getEmail())) {
             UserService userService = new UserService(customUserRepository);
