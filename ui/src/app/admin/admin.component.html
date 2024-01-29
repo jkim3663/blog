@@ -1,1 +1,18 @@
-<p>admin works!</p>
+<form (keydown.enter)="$event.preventDefault()">
+    <div class="container">
+        <label for="textbox">Paragraph:</label>
+        <textarea id="textbox" name="textbox" [(ngModel)]="post.detail"></textarea>
+        <br><br>
+
+        <button type="button" (click)="save()">Add Post</button>
+        <div *ngIf="getIsSaved()" class="subContainer">
+            <p>Update Success!</p>
+            <button type="button" (click)="closePop()">close</button>
+        </div>
+        <br>
+        
+        <button type="button" (click)="reset()">Clear</button>
+        <br><br>
+        <button type="button">Delete Post</button>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+USE blog;
+
+DROP TABLE IF EXISTS paragraph;
+CREATE TABLE IF NOT EXISTS paragraph (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    detail TEXT NOT NULL
+);

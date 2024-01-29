@@ -6,9 +6,12 @@
         <label>Password : </label>   
         <input type="password" placeholder="Enter Password" [(ngModel)]="user.password" name="password" required>  
         <br>
-        <button type="submit" (click)="login()">Login</button>   
+        <button type="button" (click)="login()">Login</button>   
         <br>
         <input type="checkbox" checked="checked"> Remember me   
         <button type="button" (click)="goBack()" class="cancelbtn">Cancel</button>   
     </div>   
+    <div class="error" *ngIf="showErrMessage()">
+        <h1>Invalid username or password - Please try again</h1>
+    </div>
 </form>   

@@ -17,13 +17,25 @@ export class LoginService {
 
   private userInfoUrl = 'api/usr/check';
 
+  private isValidUser: Boolean = false;
+
   constructor(private http: HttpClient) {}
+
 
   getUser(user: User): Observable<boolean> {
     return this.http.post<boolean>(`${environment.API_URL}/${this.userInfoUrl}`, user, this.httpOptions).pipe(
       tap(_ => console.log('fetched user info')),
+      map(value => this.isValidUser = value),
       catchError(this.handleError<boolean>('getUser'))
     );
+  }
+
+  isAuthenticated(): Boolean {
+    return this.isValidUser;
+  }
+
+  cleanData(): void {
+    this.isValidUser = false;
   }
 
   /**

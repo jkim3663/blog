@@ -4,10 +4,13 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
+import { authGuard } from './auth/auth.guard';
+import { preventBackGuard } from './auth/prevent-back.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
-  { path: 'admin', component: AdminComponent},
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard], canDeactivate: [preventBackGuard]},
   { path: 'login', component: LoginComponent},
 ];
 
