@@ -1,8 +1,11 @@
 package com.jun.service.controller;
 
 import com.jun.service.constants.ApiConstants;
+import com.jun.service.dto.PostDTO;
 import com.jun.service.dto.UserDTO;
+import com.jun.service.logic.PostService;
 import com.jun.service.logic.UserService;
+import com.jun.service.repository.CustomPostRepository;
 import com.jun.service.repository.CustomUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AppController {
 
     private final CustomUserRepository customUserRepository;
+
+    private final CustomPostRepository customPostRepository;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/usr/check")
@@ -39,5 +44,15 @@ public class AppController {
             return userService.loadUser(userDTO);
         }
         return new ResponseEntity(ApiConstants.API_REQUEST_FAIL, HttpStatus.BAD_REQUEST);
+    }
+
+
+    @PostMapping("/paragraphs")
+    public ResponseEntity<String> addPost(@RequestBody PostDTO postDTO) {
+        if (!postDTO.getDetail().isEmpty()) {
+            PostService postService = new PostService(customPostRepository);
+            return postService.addPost(postDTO);
+        }
+        return new ResponseEntity<>(ApiConstants.API_REQUEST_FAIL, HttpStatus.BAD_REQUEST);
     }
 }
