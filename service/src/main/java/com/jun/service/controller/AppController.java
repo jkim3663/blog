@@ -47,6 +47,7 @@ public class AppController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/paragraphs")
     public ResponseEntity<String> addPost(@RequestBody PostDTO postDTO) {
         if (!postDTO.getDetail().isEmpty()) {
