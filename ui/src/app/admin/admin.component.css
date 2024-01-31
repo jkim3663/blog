@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+#titlebox {
+    width: 200px;
+    resize: none;
+}
+
 #textbox {
     height: 250px;
     width: 450px;

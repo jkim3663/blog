@@ -6,7 +6,6 @@ import { Observable, Subscription } from 'rxjs';
 
 import { User } from '../user';
 import { LoginService } from '../login.service';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   standalone: true,

@@ -1,5 +1,8 @@
 <form (keydown.enter)="$event.preventDefault()">
     <div class="container">
+        <label for="titlebox">Title:</label>
+        <textarea id="titlebox" name="titlebox" [(ngModel)]="post.title"></textarea>
+
         <label for="textbox">Paragraph:</label>
         <textarea id="textbox" name="textbox" [(ngModel)]="post.detail"></textarea>
         <br><br>

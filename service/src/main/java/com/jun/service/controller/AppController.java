@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -49,11 +52,13 @@ public class AppController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/paragraphs")
-    public ResponseEntity<String> addPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<Map<String, String>> addPost(@RequestBody PostDTO postDTO) {
         if (!postDTO.getDetail().isEmpty()) {
             PostService postService = new PostService(customPostRepository);
             return postService.addPost(postDTO);
         }
-        return new ResponseEntity<>(ApiConstants.API_REQUEST_FAIL, HttpStatus.BAD_REQUEST);
+        Map<String, String> map = new HashMap<>();
+        map.put("response", ApiConstants.API_REQUEST_FAIL);
+        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
     }
 }

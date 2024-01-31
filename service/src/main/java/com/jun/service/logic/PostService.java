@@ -9,25 +9,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final CustomPostRepository customPostRepository;
 
-    public ResponseEntity<String> addPost(PostDTO postDTO) {
+    public ResponseEntity<Map<String, String>> addPost(PostDTO postDTO) {
+        Map<String, String> message = new HashMap<>();
         try {
+            System.out.println("add post started");
             PostEntity postEntity = convertDTOToEntity(postDTO);
             customPostRepository.save(postEntity);
-            return new ResponseEntity<>(ApiConstants.API_REQUEST_SUCCESS, HttpStatus.OK);
+            System.out.println("add post completed");
+
+            message.put("response", ApiConstants.API_REQUEST_SUCCESS);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(ApiConstants.API_REQUEST_FAIL + e.getMessage(), HttpStatus.OK);
+            message.put("response", ApiConstants.API_REQUEST_FAIL);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         }
     }
 
     private PostEntity convertDTOToEntity(PostDTO postDTO) {
         PostEntity postEntity = new PostEntity();
+        postEntity.setTitle(postDTO.getTitle());
         postEntity.setDetail(postDTO.getDetail());
+        postEntity.setDate(Date.valueOf(LocalDate.now()));
         return postEntity;
     }
 }

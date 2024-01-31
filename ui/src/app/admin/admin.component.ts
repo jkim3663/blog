@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../post';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+
+import { AdminService } from '../admin.service';
+import { Post } from '../post';
+import { Constants } from '../constants';
 
 @Component({
   standalone: true,
@@ -17,14 +20,20 @@ import { NgIf } from '@angular/common';
 
 export class AdminComponent {
   post: Post = {
+    title: '',
     detail: ''
   };
 
-  private isSaved: Boolean = true;
+  constructor (
+    private adminService: AdminService,
+  ) {};
+
+  private isSaved: Boolean = false;
 
   save(): void {
-    console.log(this.post.detail);
-    this.isSaved = true;
+    this.adminService.addPost(this.post).subscribe(
+      res => res.response === Constants.API_REQUEST_SUCCESS ? this.isSaved = true : console.log(res)
+    );
   }
 
   reset(): void {
