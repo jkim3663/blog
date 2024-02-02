@@ -15,6 +15,7 @@ import { Constants } from '../constants';
   imports: [
     FormsModule,
     NgIf,
+    RouterModule,
   ]
 })
 
@@ -26,6 +27,7 @@ export class AdminComponent {
 
   constructor (
     private adminService: AdminService,
+    private router: Router,
   ) {};
 
   private isSaved: Boolean = false;

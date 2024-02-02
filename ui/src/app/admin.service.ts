@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment.development';
 import { Post } from './post';
+import { PostEntity } from './postentity';
 
 
 @Injectable({
@@ -26,6 +27,13 @@ export class AdminService {
     return this.http.post(`${environment.API_URL}/${this.paragraphUrl}`, post, this.httpOptions).pipe(
       tap(_ => console.log('add new post request')),
       catchError(this.handleError<any>('addPost'))
+    );
+  }
+
+  getPosts(): Observable<any> {
+    return this.http.get(`${environment.API_URL}/${this.paragraphUrl}`).pipe(
+      tap(v => console.log('getPost')),
+      catchError(this.handleError<any>('getPost'))
     );
   }
 

@@ -3,6 +3,7 @@ package com.jun.service.controller;
 import com.jun.service.constants.ApiConstants;
 import com.jun.service.dto.PostDTO;
 import com.jun.service.dto.UserDTO;
+import com.jun.service.entity.PostEntity;
 import com.jun.service.logic.PostService;
 import com.jun.service.logic.UserService;
 import com.jun.service.repository.CustomPostRepository;
@@ -11,12 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -53,12 +52,19 @@ public class AppController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/paragraphs")
     public ResponseEntity<Map<String, String>> addPost(@RequestBody PostDTO postDTO) {
-        if (!postDTO.getDetail().isEmpty()) {
+        if (!postDTO.getDetail().isEmpty() && postDTO.getTitle().length() < 255) {
             PostService postService = new PostService(customPostRepository);
             return postService.addPost(postDTO);
         }
         Map<String, String> map = new HashMap<>();
-        map.put("response", ApiConstants.API_REQUEST_FAIL);
+        map.put(ApiConstants.RESPONSE, ApiConstants.API_REQUEST_FAIL);
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/paragraphs")
+    public ResponseEntity<List<PostEntity>> getPosts() {
+        PostService postService = new PostService(customPostRepository);
+        return postService.getPosts();
     }
 }

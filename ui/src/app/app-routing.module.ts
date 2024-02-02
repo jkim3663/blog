@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 
 import { authGuard } from './auth/auth.guard';
 import { preventBackGuard } from './auth/prevent-back.guard';
+import { TopNavigationComponent } from './top-navigation/top-navigation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     RouterModule.forRoot(routes),
   ],

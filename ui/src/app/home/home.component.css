@@ -1,0 +1,15 @@
+.container {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.row {
+    text-align: center;
+}
+
+.inrow {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+

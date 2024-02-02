@@ -11,14 +11,26 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final CustomPostRepository customPostRepository;
+
+    public ResponseEntity<List<PostEntity>> getPosts() {
+        List<PostEntity> list;
+        try {
+            System.out.println("get post started");
+            list = customPostRepository.findAllByOrderByIdDesc();
+            System.out.println("get post completed");
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            list = new ArrayList<>();
+            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     public ResponseEntity<Map<String, String>> addPost(PostDTO postDTO) {
         Map<String, String> message = new HashMap<>();
@@ -28,10 +40,10 @@ public class PostService {
             customPostRepository.save(postEntity);
             System.out.println("add post completed");
 
-            message.put("response", ApiConstants.API_REQUEST_SUCCESS);
+            message.put(ApiConstants.RESPONSE, ApiConstants.API_REQUEST_SUCCESS);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception e) {
-            message.put("response", ApiConstants.API_REQUEST_FAIL);
+            message.put(ApiConstants.RESPONSE, ApiConstants.API_REQUEST_FAIL);
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
     }
