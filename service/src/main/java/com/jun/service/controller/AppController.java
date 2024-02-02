@@ -67,4 +67,12 @@ public class AppController {
         PostService postService = new PostService(customPostRepository);
         return postService.getPosts();
     }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/paragraphs")
+    public ResponseEntity<Boolean> deletePosts(@RequestBody List<Integer> ids) {
+        PostService postService = new PostService(customPostRepository);
+        return postService.deletePost(ids);
+    }
 }

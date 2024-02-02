@@ -55,4 +55,16 @@ public class PostService {
         postEntity.setDate(Date.valueOf(LocalDate.now()));
         return postEntity;
     }
+
+    public ResponseEntity<Boolean> deletePost(List<Integer> ids) {
+        System.out.println("delete post started");
+        try {
+            customPostRepository.deleteAllById(ids);
+            customPostRepository.flush();
+            System.out.println("delete post completed");
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
