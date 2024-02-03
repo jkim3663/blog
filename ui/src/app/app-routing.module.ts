@@ -6,13 +6,14 @@ import { HomeComponent } from './home/home.component';
 
 import { authGuard } from './auth/auth.guard';
 import { preventBackGuard } from './auth/prevent-back.guard';
-import { TopNavigationComponent } from './top-navigation/top-navigation.component';
+import { DelpostComponent } from './delpost/delpost.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], canDeactivate: [preventBackGuard]},
   { path: 'login', component: LoginComponent},
+  { path: 'delete', component: DelpostComponent},
 ];
 
 @NgModule({

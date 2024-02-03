@@ -9,6 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { DelpostComponent } from './delpost/delpost.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { HomeComponent } from './home/home.component';
     TopNavigationComponent,
     HomeComponent,
     LoginComponent,
+    AdminComponent,
+    DelpostComponent,
     AppRoutingModule,
   ],
   providers: [],

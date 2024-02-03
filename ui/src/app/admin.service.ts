@@ -18,8 +18,7 @@ export class AdminService {
   };
 
   private paragraphUrl = "api/paragraphs";
-
-  private added: Boolean = false;
+  private goHome: Boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +34,14 @@ export class AdminService {
       tap(v => console.log('getPost')),
       catchError(this.handleError<any>('getPost'))
     );
+  }
+
+  setGoHome(): void {
+    this.goHome = true;
+  }
+
+  canGoHome(): Boolean {
+    return this.goHome;
   }
 
   /**

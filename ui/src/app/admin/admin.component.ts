@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgIf, Location } from '@angular/common';
 
 import { AdminService } from '../admin.service';
 import { Post } from '../post';
 import { Constants } from '../constants';
+
 
 @Component({
   standalone: true,
@@ -28,9 +29,12 @@ export class AdminComponent {
   constructor (
     private adminService: AdminService,
     private router: Router,
+    private location: Location,
+    private activatedRoute: ActivatedRoute,
   ) {};
 
   private isSaved: Boolean = false;
+  private goBack: Boolean = false;
 
   save(): void {
     this.adminService.addPost(this.post).subscribe(
@@ -49,5 +53,19 @@ export class AdminComponent {
   getIsSaved(): Boolean {
     return this.isSaved;
   };
+
+  goHome(): void {
+    this.adminService.setGoHome();
+    this.router.navigate(['home']);
+  }
+
+  canGoBack(): Boolean {
+    return this.goBack;
+  }
+
+  goDelete(): void {
+    this.adminService.setGoHome();
+    this.router.navigate(['delete']);
+  }
 
 }
